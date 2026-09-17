@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>哈萨克斯坦11天旅行手册</title>
+<style>
+:root {
+  --bg: #f5f3ee;
+  --card-bg: #ffffff;
+  --text: #2c2c2c;
+  --text-secondary: #666;
+  --accent: #c0392b;
+  --accent-light: #e74c3c;
+  --border: #e0ddd5;
+  --shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+[data-theme="night"] {
+  --bg: #1a1a2e;
+  --card-bg: #252540;
+  --text: #e0e0e8;
+  --text-secondary: #9999b0;
+  --accent: #e74c3c;
+  --accent-light: #ff6b6b;
+  --border: #353560;
+  --shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  transition: background 0.5s, color 0.5s;
+  max-width: 640px;
+  margin: 0 auto;
+  overflow-x: hidden;
+}
+header { text-align: center; padding: 24px 16px 12px; }
+header h1 { font-size: 22px; font-weight: 700; }
+header .subtitle { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
+section { padding: 8px 16px 20px; }
+.card {
+  background: var(--card-bg);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: var(--shadow);
+  margin-bottom: 12px;
+  transition: background 0.5s;
+}
+.section-title { font-size: 17px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+.section-title .icon { font-size: 20px; }
+.countdown-card { text-align: center; background: linear-gradient(135deg, var(--accent), var(--accent-light)); color: #fff; border-radius: 14px; padding: 20px 16px; margin-bottom: 16px; }
+.countdown-card .event-label { font-size: 14px; opacity: 0.9; margin-bottom: 8px; }
+.countdown-card .event-time { font-size: 12px; opacity: 0.8; margin-bottom: 12px; }
+.countdown-display { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+.countdown-unit { display: flex; flex-direction: column; align-items: center; min-width: 60px; }
+.countdown-unit .num { font-size: 36px; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1; }
+.countdown-unit .label { font-size: 11px; opacity: 0.8; margin-top: 4px; }
+.countdown-tz { font-size: 11px; opacity: 0.7; margin-top: 10px; }
+.map-container { background: var(--card-bg); border-radius: 14px; padding: 12px; box-shadow: var(--shadow); margin-bottom: 16px; overflow-x: auto; }
+.map-svg { width: 100%; max-width: 600px; display: block; margin: 0 auto; }
+.map-legend { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; font-size: 11px; color: var(--text-secondary); justify-content: center; }
+.map-legend span { display: flex; align-items: center; gap: 3px; }
+.map-legend .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.booking-group { margin-bottom: 16px; }
+.booking-group h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; padding-bottom: 4px; border-bottom: 2px solid var(--border); }
+.booking-item { padding: 10px 0; border-bottom: 1px solid var(--border); }
+.booking-item:last-child { border-bottom: none; }
+.booking-item .title { font-weight: 600; font-size: 14px; }
+.booking-item .detail { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+.booking-item .badge { display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 4px; background: var(--accent); color: #fff; margin-left: 4px; }
+.booking-item .loc-link { font-size: 12px; color: var(--accent); text-decoration: none; margin-top: 2px; display: inline-block; }
+.day-card { background: var(--card-bg); border-radius: 14px; box-shadow: var(--shadow); margin-bottom: 10px; overflow: hidden; transition: background 0.5s; }
+.day-header { padding: 12px 16px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+.day-header .left { display: flex; align-items: center; gap: 8px; }
+.day-header .day-num { background: var(--accent); color: #fff; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+.day-header .day-info { font-size: 14px; }
+.day-header .day-info .date { font-weight: 700; }
+.day-header .day-info .city { font-size: 12px; color: var(--text-secondary); }
+.day-header .arrow { font-size: 12px; color: var(--text-secondary); transition: transform 0.3s; }
+.day-card.open .day-header .arrow { transform: rotate(180deg); }
+.day-body { display: none; padding: 0 16px 12px; }
+.day-card.open .day-body { display: block; }
+.day-map-btn { display: block; width: 100%; padding: 8px; margin: 8px 0; border: 1px solid var(--accent); border-radius: 8px; background: transparent; color: var(--accent); font-size: 13px; text-align: center; text-decoration: none; cursor: pointer; }
+.timeline { position: relative; padding-left: 56px; }
+.timeline::before { content: ''; position: absolute; left: 48px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+.timeline-item { position: relative; padding: 8px 0; border-bottom: 1px solid var(--border); }
+.timeline-item:last-child { border-bottom: none; }
+.timeline-item .time { position: absolute; left: -56px; width: 44px; text-align: right; font-size: 12px; font-weight: 600; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+.timeline-item .time::after { content: ''; position: absolute; right: -10px; top: 14px; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); border: 2px solid var(--card-bg); }
+.timeline-item .content { font-size: 13px; }
+.timeline-item .content .desc { font-weight: 600; }
+.timeline-item .content .sub { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+.timeline-item .content .loc-link { font-size: 12px; color: var(--accent); text-decoration: none; display: inline-block; margin-top: 2px; }
+.timeline-item .need-book { display: inline-block; font-size: 10px; padding: 1px 5px; border-radius: 3px; background: #f39c12; color: #fff; margin-left: 4px; vertical-align: middle; }
+.timeline-item .suggested { display: inline-block; font-size: 10px; padding: 1px 5px; border-radius: 3px; background: #95a5a6; color: #fff; margin-left: 4px; vertical-align: middle; }
+.todo-list { list-style: none; }
+.todo-list li { padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14px; display: flex; align-items: flex-start; gap: 8px; }
+.todo-list li:last-child { border-bottom: none; }
+.todo-list .todo-icon { width: 20px; height: 20px; border: 2px solid var(--text-secondary); border-radius: 4px; flex-shrink: 0; margin-top: 1px; }
+.todo-list .urgent .todo-icon { border-color: var(--accent); }
+.todo-list .urgent { color: var(--accent); font-weight: 600; }
+.todo-list .urgent .urgent-tag { font-size: 10px; background: var(--accent); color: #fff; padding: 1px 5px; border-radius: 3px; margin-left: 4px; font-weight: 400; }
+.tips-category { margin-bottom: 14px; }
+.tips-category h3 { font-size: 14px; font-weight: 700; margin-bottom: 6px; color: var(--accent); }
+.tips-category ul { list-style: none; padding-left: 0; }
+.tips-category li { font-size: 13px; padding: 3px 0; padding-left: 14px; position: relative; }
+.tips-category li::before { content: '•'; position: absolute; left: 0; color: var(--accent); }
+.warning-box { background: rgba(243,156,18,0.12); border-left: 3px solid #f39c12; border-radius: 6px; padding: 10px 12px; margin: 8px 0; font-size: 13px; }
+.warning-box .title { font-weight: 700; color: #e67e22; margin-bottom: 4px; }
+footer { text-align: center; padding: 20px 16px 40px; font-size: 11px; color: var(--text-secondary); }
+.theme-indicator { position: fixed; top: 12px; right: 12px; font-size: 18px; z-index: 100; opacity: 0.5; }
+</style>
+</head>
+<body>
+<div class="theme-indicator" id="themeIcon">☀️</div>
+<header>
+  <h1>🇰🇿 哈萨克斯坦 11 天旅行手册</h1>
+  <div class="subtitle">阿拉木图 + 阿克套 · 2026年10月1日–10月12日 · 4人</div>
+</header>
+<section id="countdown">
+  <div class="countdown-card" id="countdownCard">
+    <div class="event-label" id="eventLabel">出发！</div>
+    <div class="event-time" id="eventTime"></div>
+    <div class="countdown-display" id="countdownDisplay">
+      <div class="countdown-unit"><div class="num" id="cdDays">0</div><div class="label">天</div></div>
+      <div class="countdown-unit"><div class="num" id="cdHours">0</div><div class="label">时</div></div>
+      <div class="countdown-unit"><div class="num" id="cdMins">0</div><div class="label">分</div></div>
+      <div class="countdown-unit"><div class="num" id="cdSecs">0</div><div class="label">秒</div></div>
+    </div>
+    <div class="countdown-tz" id="countdownTz"></div>
+  </div>
+</section>
+<section id="overview">
+  <div class="section-title"><span class="icon">🗺️</span> 行程总览</div>
+  <div class="map-container">
+    <svg class="map-svg" viewBox="0 0 600 320" xmlns="http://www.w3.org/2000/svg">
+      <path d="M 0 80 L 80 70 L 90 120 L 70 180 L 80 240 L 0 260 Z" fill="#a8d8ea" opacity="0.5"/>
+      <text x="20" y="170" font-size="10" fill="#5ba3c7" opacity="0.7">里海</text>
+      <path d="M 80 70 L 180 55 L 280 50 L 380 55 L 480 60 L 560 70 L 580 100 L 570 140 L 540 170 L 500 190 L 450 200 L 380 205 L 300 210 L 220 215 L 150 210 L 90 240 L 70 180 L 80 120 Z" fill="#e8e4d8" stroke="#c5bfa8" stroke-width="1.5" opacity="0.6"/>
+      <path d="M 540 280 Q 400 150 540 65" fill="none" stroke="#3498db" stroke-width="2" stroke-dasharray="5,4" opacity="0.7"/>
+      <text x="420" y="180" font-size="9" fill="#3498db" opacity="0.8">✈ 10/1</text>
+      <path d="M 540 65 L 90 120" fill="none" stroke="#3498db" stroke-width="2" stroke-dasharray="5,4" opacity="0.7"/>
+      <text x="300" y="80" font-size="9" fill="#3498db" opacity="0.8">✈ 10/2</text>
+      <circle cx="120" cy="160" r="25" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,2" opacity="0.6"/>
+      <text x="100" y="195" font-size="8" fill="#27ae60" opacity="0.8">Mangystau 10/3-4</text>
+      <path d="M 120 160 L 60 200" fill="none" stroke="#f39c12" stroke-width="2" opacity="0.7"/>
+      <text x="30" y="220" font-size="8" fill="#f39c12" opacity="0.8">🏕️ 10/5-6</text>
+      <path d="M 90 120 L 540 65" fill="none" stroke="#3498db" stroke-width="2" stroke-dasharray="5,4" opacity="0.5"/>
+      <text x="300" y="110" font-size="9" fill="#3498db" opacity="0.5">✈ 10/7</text>
+      <path d="M 540 65 L 500 50 L 470 55" fill="none" stroke="#e74c3c" stroke-width="2" opacity="0.6"/>
+      <text x="440" y="45" font-size="8" fill="#e74c3c" opacity="0.7">恰伦峡谷</text>
+      <path d="M 470 55 L 440 40" fill="none" stroke="#e74c3c" stroke-width="2" opacity="0.6"/>
+      <text x="390" y="32" font-size="8" fill="#e74c3c" opacity="0.7">科尔赛湖</text>
+      <path d="M 540 65 Q 400 150 540 280" fill="none" stroke="#8e44ad" stroke-width="2" stroke-dasharray="5,4" opacity="0.7"/>
+      <text x="440" y="220" font-size="9" fill="#8e44ad" opacity="0.8">✈ 10/11</text>
+      <circle cx="540" cy="65" r="6" fill="#e74c3c"/>
+      <circle cx="540" cy="65" r="10" fill="none" stroke="#e74c3c" stroke-width="1.5" opacity="0.4"/>
+      <text x="548" y="62" font-size="12" font-weight="bold" fill="#2c2c2c">阿拉木图</text>
+      <text x="548" y="74" font-size="9" fill="#666">🏨 5晚</text>
+      <circle cx="90" cy="120" r="6" fill="#3498db"/>
+      <circle cx="90" cy="120" r="10" fill="none" stroke="#3498db" stroke-width="1.5" opacity="0.4"/>
+      <text x="98" y="117" font-size="12" font-weight="bold" fill="#2c2c2c">阿克套</text>
+      <text x="98" y="129" font-size="9" fill="#666">🏨 4晚</text>
+      <polygon points="60,200 55,195 50,200 52,206 58,206" fill="#f39c12"/>
+      <text x="30" y="235" font-size="9" fill="#666">🏕️ 露营</text>
+      <circle cx="540" cy="280" r="4" fill="#8e44ad"/>
+      <text x="548" y="284" font-size="10" fill="#666">杭州</text>
+    </svg>
+    <div class="map-legend">
+      <span><span class="dot" style="background:#e74c3c"></span>阿拉木图</span>
+      <span><span class="dot" style="background:#3498db"></span>阿克套</span>
+      <span><span class="dot" style="background:#27ae60"></span>Mangystau游览</span>
+      <span><span class="dot" style="background:#f39c12"></span>露营</span>
+      <span><span class="dot" style="background:#8e44ad"></span>国际航班</span>
+    </div>
+  </div>
+</section>
+<section id="bookings">
+  <div class="section-title"><span class="icon">📋</span> 已确认预订</div>
+  <div class="card">
+    <div class="booking-group">
+      <h3>🚄 火车</h3>
+      <div class="booking-item"><div class="title">上海虹桥 → 杭州东</div><div class="detail">G1383 二等座 · 10月1日(周四) · 12:19出发 → 13:21到达</div><div class="detail">历时1小时2分 · 检票口19A/19B · 02车</div><div class="detail">蒋卓娅 08C(过道) · 余倩 08B · 顾志翔 08A(靠窗) · ¥87/人</div><div class="detail">第4人 13:35单独抵达杭州东</div><a class="loc-link" href="https://www.google.com/maps/search/?api=1&query=Shanghai+Hongqiao+Railway+Station">📍 上海虹桥站</a><a class="loc-link" href="https://www.google.com/maps/search/?api=1&query=Hangzhou+East+Railway+Station">📍 杭州东站</a></div>
+    </div>
+    <div class="booking-group">
+      <h3>✈️ 机票</h3>
+      <div class="booking-item"><div class="title">杭州 → 阿拉木图 <span class="badge">国际</span></div><div class="detail">GJ8217 经济舱 · 10月1日(周四) · 18:20出发 → 21:45到达</div><div class="detail">HGH T4 → ALA T2 · 飞行约6.5h</div><a class="loc-link" href="https://www.google.com/maps/search/?api=1&query=Almaty+International+Airport+T2">📍 阿拉木图机场 T2</a></div>
+      <div class="booking-item"><div class="title">阿拉木图 → 阿克套</div><div class="detail">DV731 经济舱 · 10月2日(周五) · 15:55出发 → 19:10到达</div><div class="detail">ALA T1 → SCO · SCAT Airlines · 飞行约3h15m</div><a class="loc-link" href="https://www.google.com/maps/search/?api=1&query=Aktau+Airport+SCO">📍 阿克套机场</a></div>
+      <div class="booking-item"><div class="title">阿克套 → 阿拉木图</div><div class="detail">DV729 经济舱 · 10月7日(周三) · 20:30出发 → 23:20到达</div><div class="detail">SCO → ALA T1 · SCAT Airlines · 飞行约2h50m</div><a class="loc-link" href="https://www.google.com/maps/search/?api=1&query=Almaty+International+Airport+T1">📍 阿拉木图机场 T1</a></div>
+      <div class="booking-item"><div class="title">阿拉木图 → 杭州 <span class="badge">国际</span></div><div class="detail">GJ8218 经济舱 · 10月11日(周日) · 22:45出发 → 10月12日 07:40+1到达</div><div class="detail">ALA T2 → HGH T4 · 飞行约5h55m</div></div>
+    </div>
+    <div class="booking-group">
+      <h3>🏨 酒店</h3>
+      <div class="booking-item"><div class="title">Renion City · 阿拉木图</div><div class="detail">10月1日 入住 · 1晚</div><a class="loc-link" href="https://www.google.com/maps/search/?api=1&query=Renion+City+Hotel+Almaty">📍 查看地图</a><a class="loc-link" href="renion-ala.pdf" target="_blank">📄 查看预订确认单</a></div>
+      <div class="booking-item"><div class="title">Ustyurt Boutique Hotel · 阿克套</div><div class="detail">10月2日–10月5日 · 3晚 · 含早 · 担保订单现场支付</div><div class="detail">10月2日前可免费取消</div><a class="loc-link" href="https://www.google.com/maps/search/?api=1&query=Ustyurt+Boutique+Hotel+Aktau">📍 查看地图</a><a class="loc-link" href="ustyurt-aktau.pdf" target="_blank">📄 查看预订确认单</a></div>
+      <div class="booking-item"><div class="title">Renaissance by Sula Hotels · 阿克套</div><div class="detail">10月6日 · 1晚 · 含早</div><a class="loc-link" href="https://www.google.com/maps/search/?api=1&query=Renaissance+by+Sula+Hotels+Aktau">📍 查看地图</a><a class="loc-link" href="renaissance-aktau.pdf" target="_blank">📄 查看预订确认单</a></div>
+      <div class="booking-item"><div class="title">Airbnb · 阿拉木图</div><div class="detail">10月7日–10月11日 · 4晚</div><a class="loc-link" href="airbnb-ala.pdf" target="_blank">📄 查看预订确认单</a></div>
+    </div>
+    <div class="booking-group">
+      <h3>🚗 包车 / 游览</h3>
+      <div class="booking-item"><div class="title">Mangystau 包车游览 <span class="badge">待确认</span></div><div class="detail">10月3日–10月6日 · 4天</div><div class="detail">10/3、10/4 一日游 · 10/5–10/6 两日一夜露营</div><div class="detail">候选：Redmaya / Mangystau Tour 999 / Go Mangystau</div><div class="detail">露营装备由包车公司提供（需自带睡袋内胆）</div></div>
+    </div>
+  </div>
+</section>
+<section id="itinerary">
+  <div class="section-title"><span class="icon">📅</span> 逐日行程</div>
+  <div id="itineraryContainer"></div>
+</section>
+<section id="todos">
+  <div class="section-title"><span class="icon">✅</span> 待办清单</div>
+  <div class="card">
+    <ul class="todo-list" id="todoList"></ul>
+    <div style="font-size:12px;color:var(--text-secondary);margin-top:8px;padding-top:8px;border-top:1px solid var(--border)">办完一项告诉我，我更新页面后你重新 push 即可</div>
+  </div>
+</section>
+<section id="tips">
+  <div class="section-title"><span class="icon">💡</span> 实用贴士</div>
+  <div class="card">
+    <div class="warning-box"><div class="title">⚠️ 风险提醒</div><div>• <b>恰伦峡谷+科尔赛湖</b>一天来回不现实（单程3-4h），建议分两天或选其一</div><div>• <b>10/2上午</b>在阿拉木图时间紧张，14:00前需到机场，不宜安排远途景点</div><div>• <b>AUYL餐厅</b>为热门网红店，务必提前预订</div><div>• <b>Mangystau包车</b>为最紧急待办，国庆期间可能满员</div></div>
+    <div class="tips-category"><h3>📄 证件 & 入境</h3><ul><li>护照（有效期＞6个月，免签停留≤30天）</li><li>往返机票行程单 + 全程酒店预订单（打印纸质 + 手机PDF）</li><li>旅行保险（含境外紧急救援、野外搜救、医疗）</li><li>护照首页拍照备份（云盘+备用手机），白底证件照2张</li><li>国内身份证（国内航段备用）</li><li>银联借记卡（境外取现免手续费）+ Visa/Master信用卡</li><li>少量美元现金 200-400USD（干净无破损，柜台换坚戈）</li></ul></div>
+    <div class="tips-category"><h3>📱 通讯 & 网络</h3><ul><li>当地电话卡 Tele2 / Kcell（15-20G流量，机场或Halyk银行网点可买）</li><li>国内开通国际漫游做保底</li><li>提前下载离线包：Google Maps / 2GIS（哈国离线地图）</li><li>Yandex Go（打车）、DeepL / 谷歌翻译（俄语/哈语）</li><li>Kaspi.kz（本地支付App）</li><li>备用手机放电话卡做导航备用</li><li>充电宝 ≤20000mAh 随身携带，禁止托运</li></ul></div>
+    <div class="tips-category"><h3>🏕️ 露营装备（10月山区，夜间0℃以下）</h3><ul><li>睡袋隔离袋（内胆）——需自带，包车公司提供帐篷睡袋</li><li>暖宝宝（贴脚底/后背，露营夜间救命）</li><li>厚羊毛袜2双、抓绒帽、防水手套</li><li>头灯（必备！）+ 备用电池</li><li>2L户外水壶 + 净水片</li><li>防水收纳袋、垃圾袋（荒野必须带走所有垃圾）</li><li>应急保温毯、便携急救包</li><li>气罐当地超市采购（不能上飞机）</li></ul></div>
+    <div class="tips-category"><h3>🧥 衣物（洋葱式叠穿）</h3><ul><li>内层：速干长袖×2、速干短袖×2（不要纯棉！）</li><li>中层：抓绒衣/薄羽绒马甲、轻薄羽绒服（露营主力保暖）</li><li>外层：防风防水冲锋衣</li><li>下装：耐磨徒步长裤2条、薄抓绒内胆裤（露营用）</li><li>鞋：中帮防水徒步鞋 + 城市休闲鞋</li><li>配饰：羊毛帽、防风手套、大围巾、墨镜</li><li>一次性内裤、洗脸巾（当地纸巾质量差）</li></ul></div>
+    <div class="tips-category"><h3>🔌 电子配件</h3><ul><li>欧标C型圆孔转换插头×2 + 便携插排</li><li>数据线、充电头、手机防水袋</li><li>相机/运动相机 + 备用电池（低温耗电快）</li><li>无人机（如携带：提前查哈国法规，城市/保护区禁飞）</li></ul></div>
+    <div class="tips-category"><h3>🧴 洗护 & 护肤</h3><ul><li>高倍防晒霜SPF50+、润唇膏（带防晒）、保湿面霜、身体乳</li><li>便携洗漱套装、湿巾、干纸巾、洗手液（野外无厕所）</li></ul></div>
+    <div class="tips-category"><h3>💊 药品</h3><ul><li>肠胃药（止泻、胃药）、感冒药、退烧药、止痛片</li><li>外伤：创可贴、碘伏棉片、纱布、弹性绷带</li><li>个人常备药、维生素C泡腾片、葡萄糖</li><li>❌ 禁止大量中成药、草药入境</li></ul></div>
+    <div class="tips-category"><h3>🎒 户外 & 随身</h3><ul><li>折叠登山杖（恰伦峡谷下坡省力）</li><li>折叠雨伞/雨衣、便携水杯、小锁（酒店寄存）</li><li>口罩、耳塞、眼罩</li><li>小背包20-30L（每日徒步随身包）</li></ul></div>
+    <div class="tips-category"><h3>🥨 食品入境</h3><ul><li>✅ 巧克力、能量棒、坚果、饼干（无肉无奶密封干粮）</li><li>❌ 严禁：鲜肉、香肠、奶制品、新鲜水果</li></ul></div>
+    <div class="tips-category"><h3>🔒 安全 & 出行</h3><ul><li>取现优先白天在Halyk银行营业厅ATM，选坚戈KZT结算</li><li>DCC陷阱：ATM取现拒绝美元/人民币动态转换</li><li>银行APP出境前打开境外交易，回国立刻关闭</li><li>野外露营提前确认营地是否允许扎营，告知司机/向导位置</li><li>山区部分区域手机无信号，提前下载离线地图</li></ul></div>
+  </div>
+</section>
+<footer>哈萨克斯坦旅行手册 · 阿拉木图 + 阿克套 + Mangystau · 2026年10月</footer>
+<script>
+const KZ_TZ = 'Asia/Almaty';
+const events = [
+  { ts: '2026-10-01T12:19:00+08:00', label: '上海虹桥出发 → 杭州东 G1383', tz: 'Asia/Shanghai' },
+  { ts: '2026-10-01T18:20:00+08:00', label: '杭州出发 → 阿拉木图', tz: 'Asia/Shanghai' },
+  { ts: '2026-10-01T21:45:00+05:00', label: '抵达阿拉木图', tz: KZ_TZ },
+  { ts: '2026-10-02T15:55:00+05:00', label: '阿拉木图 → 阿克套 DV731', tz: KZ_TZ },
+  { ts: '2026-10-02T19:10:00+05:00', label: '抵达阿克套', tz: KZ_TZ },
+  { ts: '2026-10-03T09:00:00+05:00', label: 'Mangystau 一日游', tz: KZ_TZ },
+  { ts: '2026-10-04T09:00:00+05:00', label: 'Mangystau 一日游', tz: KZ_TZ },
+  { ts: '2026-10-05T09:00:00+05:00', label: 'Mangystau 露营出发', tz: KZ_TZ },
+  { ts: '2026-10-07T20:30:00+05:00', label: '阿克套 → 阿拉木图 DV729', tz: KZ_TZ },
+  { ts: '2026-10-07T23:20:00+05:00', label: '抵达阿拉木图', tz: KZ_TZ },
+  { ts: '2026-10-11T22:45:00+05:00', label: '阿拉木图 → 杭州 GJ8218', tz: KZ_TZ },
+];
+function getNextEvent() { const now = Date.now(); for (const e of events) { if (new Date(e.ts).getTime() > now) return e; } return null; }
+function updateCountdown() {
+  const ev = getNextEvent(); const now = Date.now();
+  if (!ev) { document.getElementById('eventLabel').textContent = '🎉 旅行结束'; document.getElementById('eventTime').textContent = ''; document.getElementById('countdownDisplay').style.display = 'none'; document.getElementById('countdownTz').textContent = ''; return; }
+  document.getElementById('eventLabel').textContent = '⏰ ' + ev.label;
+  const evDate = new Date(ev.ts); const tzTime = evDate.toLocaleString('zh-CN', { timeZone: ev.tz, month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
+  document.getElementById('eventTime').textContent = tzTime + ' (' + (ev.tz === 'Asia/Shanghai' ? '北京时间' : '哈萨克斯坦时间') + ')';
+  const diff = evDate.getTime() - now; if (diff <= 0) return;
+  const days = Math.floor(diff / 86400000); const hours = Math.floor((diff % 86400000) / 3600000); const mins = Math.floor((diff % 3600000) / 60000); const secs = Math.floor((diff % 60000) / 1000);
+  document.getElementById('cdDays').textContent = days; document.getElementById('cdHours').textContent = String(hours).padStart(2, '0'); document.getElementById('cdMins').textContent = String(mins).padStart(2, '0'); document.getElementById('cdSecs').textContent = String(secs).padStart(2, '0');
+  const localTz = Intl.DateTimeFormat().resolvedOptions().timeZone; document.getElementById('countdownTz').textContent = '你的时区: ' + localTz + ' · 哈萨克斯坦 UTC+5';
+}
+setInterval(updateCountdown, 1000); updateCountdown();
+function updateTheme() { const hour = new Date().getHours(); const isNight = hour < 6 || hour >= 18; document.body.setAttribute('data-theme', isNight ? 'night' : 'day'); document.getElementById('themeIcon').textContent = isNight ? '🌙' : '☀️'; }
+updateTheme(); setInterval(updateTheme, 60000);
+const itinerary = [
+  { day: 1, date: '10月1日', dow: '周四', city: '阿拉木图', hotel: 'Renion City', items: [{ time: '12:19', desc: '上海虹桥出发 → 杭州东', sub: 'G1383 二等座 · 3人同行 · 检票口19A/19B', loc: 'Shanghai Hongqiao Railway Station', lat: 31.190, lng: 121.319 }, { time: '13:21', desc: '抵达杭州东站', sub: '历时1h2m · 02车 08A/08B/08C', loc: 'Hangzhou East Railway Station', lat: 30.291, lng: 120.213 }, { time: '13:35', desc: '第4人抵达杭州东', sub: '小伙伴单独到达，汇合' }, { time: '18:20', desc: '杭州萧山机场出发', sub: 'GJ8217 经济舱 · HGH T4 · 4人', loc: 'Hangzhou Xiaoshan International Airport', lat: 30.239, lng: 120.434 }, { time: '21:45', desc: '抵达阿拉木图机场 T2', sub: '入境、取行李、换坚戈', loc: 'Almaty International Airport', lat: 43.352, lng: 77.040 }, { time: '22:30', desc: '入住 Renion City 酒店', sub: '休息', loc: 'Renion City Hotel Almaty', lat: 43.239, lng: 76.890 }] },
+  { day: 2, date: '10月2日', dow: '周五', city: '阿拉木图→阿克套', hotel: 'Ustyurt Boutique Hotel', items: [{ time: '09:00', desc: '酒店退房，阿拉木图市区自由活动', sub: '绿色巴扎 / Panfilov公园', suggested: true, loc: 'Green Bazaar Almaty', lat: 43.257, lng: 76.937 }, { time: '13:30', desc: '前往阿拉木图机场 T1', sub: '国内航班需提前2h到', loc: 'Almaty International Airport T1', lat: 43.352, lng: 77.040 }, { time: '15:55', desc: '阿拉木图 → 阿克套', sub: 'DV731 经济舱 · ALA T1 → SCO', loc: 'Aktau Airport', lat: 43.858, lng: 51.098 }, { time: '19:10', desc: '抵达阿克套机场', sub: '取行李', loc: 'Aktau Airport', lat: 43.858, lng: 51.098 }, { time: '20:00', desc: '入住 Ustyurt Boutique Hotel', sub: '含早 · 担保订单现场支付', loc: 'Ustyurt Boutique Hotel Aktau', lat: 43.658, lng: 51.159 }] },
+  { day: 3, date: '10月3日', dow: '周六', city: '阿克套/Mangystau', hotel: 'Ustyurt Boutique Hotel', items: [{ time: '08:00', desc: '酒店早餐', sub: '' }, { time: '09:00', desc: 'Mangystau 一日游', sub: '包车游览（公司待确认）· 具体路线由包车公司安排', needBook: true, loc: 'Mangystau Kazakhstan', lat: 44.0, lng: 52.0 }, { time: '18:00', desc: '返回阿克套', sub: '' }, { time: '19:00', desc: '晚餐', sub: '当地餐厅', suggested: true }] },
+  { day: 4, date: '10月4日', dow: '周日', city: '阿克套/Mangystau', hotel: 'Ustyurt Boutique Hotel', items: [{ time: '08:00', desc: '酒店早餐', sub: '' }, { time: '09:00', desc: 'Mangystau 一日游', sub: '包车游览（公司待确认）· 具体路线由包车公司安排', needBook: true, loc: 'Mangystau Kazakhstan', lat: 44.0, lng: 52.0 }, { time: '18:00', desc: '返回阿克套', sub: '' }, { time: '19:00', desc: '晚餐', sub: '当地餐厅', suggested: true }] },
+  { day: 5, date: '10月5日', dow: '周一', city: 'Mangystau露营', hotel: '露营', items: [{ time: '08:00', desc: '酒店早餐，退房', sub: 'Ustyurt Boutique Hotel 退房', loc: 'Ustyurt Boutique Hotel Aktau', lat: 43.658, lng: 51.159 }, { time: '09:00', desc: '出发 Mangystau 两日一夜露营', sub: '包车+露营装备（公司提供）· 自带睡袋内胆', needBook: true, loc: 'Mangystau Kazakhstan', lat: 44.0, lng: 52.0 }, { time: '12:00', desc: '沿途游览', sub: '具体景点由包车公司安排', suggested: true }, { time: '18:00', desc: '到达营地，扎营', sub: '夜间温度接近0℃，注意保暖', loc: 'Mangystau Kazakhstan', lat: 44.0, lng: 52.0 }] },
+  { day: 6, date: '10月6日', dow: '周二', city: 'Mangystau→阿克套', hotel: 'Renaissance by Sula', items: [{ time: '07:00', desc: '露营起床，拔营', sub: '收拾装备，带走所有垃圾' }, { time: '09:00', desc: '继续游览后返回阿克套', sub: '包车返回', loc: 'Mangystau Kazakhstan', lat: 44.0, lng: 52.0 }, { time: '15:00', desc: '抵达阿克套', sub: '' }, { time: '16:00', desc: '入住 Renaissance by Sula Hotels', sub: '含早', loc: 'Renaissance by Sula Hotels Aktau', lat: 43.652, lng: 51.150 }, { time: '18:00', desc: '晚餐，休息', sub: '洗漱休整', suggested: true }] },
+  { day: 7, date: '10月7日', dow: '周三', city: '阿克套→阿拉木图', hotel: 'Airbnb', items: [{ time: '09:00', desc: '酒店早餐', sub: '' }, { time: '10:00', desc: '阿克套市区自由活动', sub: '海边散步 / 城市观光', suggested: true, loc: 'Aktau Kazakhstan', lat: 43.658, lng: 51.159 }, { time: '14:00', desc: '酒店退房，前往机场', sub: '行李寄存酒店后取回', loc: 'Aktau Airport', lat: 43.858, lng: 51.098 }, { time: '18:30', desc: '抵达阿克套机场', sub: '提前2h到', loc: 'Aktau Airport', lat: 43.858, lng: 51.098 }, { time: '20:30', desc: '阿克套 → 阿拉木图', sub: 'DV729 经济舱 · SCO → ALA T1', loc: 'Almaty International Airport', lat: 43.352, lng: 77.040 }, { time: '23:20', desc: '抵达阿拉木图', sub: '取行李后前往住处', loc: 'Almaty International Airport', lat: 43.352, lng: 77.040 }, { time: '00:30', desc: '入住 Airbnb', sub: '休息', suggested: true }] },
+  { day: 8, date: '10月8日', dow: '周四', city: '阿拉木图', hotel: 'Airbnb', items: [{ time: '09:00', desc: '出发前往恰伦峡谷', sub: '单程约3h · 需包车或自驾', suggested: true, needBook: true, loc: 'Charyn Canyon Kazakhstan', lat: 43.350, lng: 79.050 }, { time: '12:00', desc: '抵达恰伦峡谷', sub: '峡谷徒步约2-3h', suggested: true, loc: 'Charyn Canyon Kazakhstan', lat: 43.350, lng: 79.050 }, { time: '15:00', desc: '返回阿拉木图', sub: '约3h车程', suggested: true }, { time: '19:00', desc: '晚餐', sub: 'AUYL 餐厅（需提前预订）', needBook: true, suggested: true, loc: 'AUYL restaurant Almaty', lat: 43.218, lng: 76.925 }] },
+  { day: 9, date: '10月9日', dow: '周五', city: '阿拉木图', hotel: 'Airbnb', items: [{ time: '10:00', desc: '阿拉木图市区游览', sub: 'Panfilov公园 · 升天大教堂', suggested: true, loc: 'Panfilov Park Almaty', lat: 43.253, lng: 76.945 }, { time: '12:00', desc: '绿色巴扎', sub: '当地市场，体验美食', suggested: true, loc: 'Green Bazaar Almaty', lat: 43.257, lng: 76.937 }, { time: '14:00', desc: '午餐', sub: '', suggested: true }, { time: '15:00', desc: 'Arasan 浴场', sub: '土耳其浴/桑拿体验', suggested: true, loc: 'Arasan Bathhouse Almaty', lat: 43.253, lng: 76.945 }, { time: '19:00', desc: '晚餐', sub: '', suggested: true }] },
+  { day: 10, date: '10月10日', dow: '周六', city: '阿拉木图', hotel: 'Airbnb', items: [{ time: '08:00', desc: '出发前往科尔赛湖', sub: '单程约4h · 需包车或自驾', suggested: true, needBook: true, loc: 'Kolsay Lakes Kazakhstan', lat: 42.983, lng: 78.700 }, { time: '12:00', desc: '抵达科尔赛湖', sub: '湖边徒步', suggested: true, loc: 'Kolsay Lakes Kazakhstan', lat: 42.983, lng: 78.700 }, { time: '14:00', desc: '前往凯恩迪湖', sub: '约1h车程', suggested: true, loc: 'Lake Kaindy Kazakhstan', lat: 42.987, lng: 78.408 }, { time: '16:00', desc: '返回阿拉木图', sub: '约4h车程', suggested: true }, { time: '20:00', desc: '晚餐', sub: '', suggested: true }] },
+  { day: 11, date: '10月11日', dow: '周日', city: '阿拉木图→杭州', hotel: '飞机上', items: [{ time: '09:00', desc: 'Airbnb 退房', sub: '行李可寄存或带去机场', suggested: true }, { time: '10:00', desc: '阿拉木图最后游览 / 购物', sub: '买纪念品、干果、巧克力', suggested: true, loc: 'Almaty Kazakhstan', lat: 43.238, lng: 76.889 }, { time: '14:00', desc: '前往机场', sub: '提前到机场', loc: 'Almaty International Airport T2', lat: 43.352, lng: 77.040 }, { time: '18:00', desc: '机场晚餐', sub: '', suggested: true }, { time: '22:45', desc: '阿拉木图 → 杭州', sub: 'GJ8218 经济舱 · ALA T2 → HGH T4', loc: 'Almaty International Airport', lat: 43.352, lng: 77.040 }] },
+];
+const todos = [
+  { urgent: true, text: '确认并预定 Mangystau 露营包车公司（Redmaya / Mangystau Tour 999 / Go Mangystau 三选一，含10/3、10/4一日游 + 10/5-6两日一夜露营）' },
+  { text: 'QazETA 电子旅行授权注册' },
+  { text: '旅行保险（含境外紧急救援、野外搜救、医疗）' },
+  { text: '购买睡袋隔离袋（内胆）——包车公司提供帐篷等装备，需自带内胆' },
+  { text: '购买当地电话卡（国内提前买 / 到阿拉木图机场买，Tele2 / Kcell）' },
+  { text: '提前下载离线地图（Google Maps / 2GIS 哈国离线包）' },
+  { text: '银联卡境外取现免手续费卡准备' },
+  { text: '国内银行 APP 出境前打开境外交易权限' },
+  { text: '提前预定阿拉木图 AUYL 餐厅' },
+  { text: '确认阿拉木图段交通（恰伦峡谷/科尔赛湖 自驾还是包车）' },
+];
+function gmapsLink(lat, lng, name) { if (lat && lng) { return `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`; } return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name)}`; }
+function gmapsNavLink(items) { const pts = items.filter(i => i.lat && i.lng).map(i => `${i.lat},${i.lng}`); if (pts.length < 2) return null; const origin = pts[0]; const dest = pts[pts.length - 1]; const waypoints = pts.slice(1, -1).join('|'); let url = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${dest}`; if (waypoints) url += `&waypoints=${encodeURIComponent(waypoints)}`; return url; }
+function renderItinerary() { const container = document.getElementById('itineraryContainer'); let html = ''; itinerary.forEach(day => { html += `<div class="day-card" id="day-${day.day}">`; html += `<div class="day-header" onclick="toggleDay(${day.day})">`; html += `<div class="left">`; html += `<div class="day-num">${day.day}</div>`; html += `<div class="day-info"><div class="date">${day.date} ${day.dow}</div><div class="city">${day.city} · 🏨 ${day.hotel}</div></div>`; html += `</div>`; html += `<div class="arrow">▼</div>`; html += `</div>`; html += `<div class="day-body">`; const navLink = gmapsNavLink(day.items); if (navLink) { html += `<a class="day-map-btn" href="${navLink}" target="_blank">🗺️ 一键导航全天路线（${day.items.filter(i=>i.lat&&i.lng).length}个地点）</a>`; } html += `<div class="timeline">`; day.items.forEach(item => { html += `<div class="timeline-item">`; html += `<div class="time">${item.time}</div>`; html += `<div class="content">`; html += `<div class="desc">${item.desc}`; if (item.needBook) html += ` <span class="need-book">需提前订</span>`; if (item.suggested) html += ` <span class="suggested">建议</span>`; html += `</div>`; if (item.sub) html += `<div class="sub">${item.sub}</div>`; if (item.loc) html += `<a class="loc-link" href="${gmapsLink(item.lat, item.lng, item.loc)}" target="_blank">📍 ${item.loc}</a>`; html += `</div>`; html += `</div>`; }); html += `</div>`; html += `</div>`; html += `</div>`; }); container.innerHTML = html; }
+function toggleDay(dayNum) { const card = document.getElementById('day-' + dayNum); card.classList.toggle('open'); }
+renderItinerary();
+function renderTodos() { const list = document.getElementById('todoList'); let html = ''; todos.forEach((todo, i) => { html += `<li class="${todo.urgent ? 'urgent' : ''}">`; html += `<div class="todo-icon"></div>`; html += `<div>${todo.text}`; if (todo.urgent) html += ` <span class="urgent-tag">最紧急</span>`; html += `</div>`; html += `</li>`; }); list.innerHTML = html; }
+renderTodos();
+</script>
+</body>
+</html>
