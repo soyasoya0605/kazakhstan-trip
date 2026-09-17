@@ -181,6 +181,10 @@ footer { text-align: center; padding: 20px 16px 40px; font-size: 11px; color: va
   <div class="section-title"><span class="icon">📋</span> 已确认预订</div>
   <div class="card">
     <div class="booking-group">
+      <h3>🚄 火车</h3>
+      <div class="booking-item"><div class="title">上海虹桥 → 杭州东</div><div class="detail">G1383 二等座 · 10月1日(周四) · 12:19出发 → 13:21到达</div><div class="detail">历时1小时2分 · 检票口19A/19B · 02车</div><div class="detail">蒋卓娅 08C(过道) · 余倩 08B · 顾志翔 08A(靠窗) · ¥87/人</div><div class="detail">第4人 13:35单独抵达杭州东</div><a class="loc-link" href="https://www.google.com/maps/search/?api=1&query=Shanghai+Hongqiao+Railway+Station">📍 上海虹桥站</a><a class="loc-link" href="https://www.google.com/maps/search/?api=1&query=Hangzhou+East+Railway+Station">📍 杭州东站</a></div>
+    </div>
+    <div class="booking-group">
       <h3>✈️ 机票</h3>
       <div class="booking-item"><div class="title">杭州 → 阿拉木图 <span class="badge">国际</span></div><div class="detail">GJ8217 经济舱 · 10月1日(周四) · 18:20出发 → 21:45到达</div><div class="detail">HGH T4 → ALA T2 · 飞行约6.5h</div><a class="loc-link" href="https://www.google.com/maps/search/?api=1&query=Almaty+International+Airport+T2">📍 阿拉木图机场 T2</a></div>
       <div class="booking-item"><div class="title">阿拉木图 → 阿克套</div><div class="detail">DV731 经济舱 · 10月2日(周五) · 15:55出发 → 19:10到达</div><div class="detail">ALA T1 → SCO · SCAT Airlines · 飞行约3h15m</div><a class="loc-link" href="https://www.google.com/maps/search/?api=1&query=Aktau+Airport+SCO">📍 阿克套机场</a></div>
@@ -189,10 +193,10 @@ footer { text-align: center; padding: 20px 16px 40px; font-size: 11px; color: va
     </div>
     <div class="booking-group">
       <h3>🏨 酒店</h3>
-      <div class="booking-item"><div class="title">Renion City · 阿拉木图</div><div class="detail">10月1日 入住 · 1晚</div><a class="loc-link" href="https://www.google.com/maps/search/?api=1&query=Renion+City+Hotel+Almaty">📍 查看地图</a></div>
-      <div class="booking-item"><div class="title">Ustyurt Boutique Hotel · 阿克套</div><div class="detail">10月2日–10月5日 · 3晚 · 含早 · 担保订单现场支付</div><div class="detail">10月2日前可免费取消</div><a class="loc-link" href="https://www.google.com/maps/search/?api=1&query=Ustyurt+Boutique+Hotel+Aktau">📍 查看地图</a></div>
-      <div class="booking-item"><div class="title">Renaissance by Sula Hotels · 阿克套</div><div class="detail">10月6日 · 1晚 · 含早</div><a class="loc-link" href="https://www.google.com/maps/search/?api=1&query=Renaissance+by+Sula+Hotels+Aktau">📍 查看地图</a></div>
-      <div class="booking-item"><div class="title">Airbnb · 阿拉木图</div><div class="detail">10月7日–10月11日 · 4晚</div></div>
+      <div class="booking-item"><div class="title">Renion City · 阿拉木图</div><div class="detail">10月1日 入住 · 1晚</div><a class="loc-link" href="https://www.google.com/maps/search/?api=1&query=Renion+City+Hotel+Almaty">📍 查看地图</a><a class="loc-link" href="renion-ala.pdf" target="_blank">📄 查看预订确认单</a></div>
+      <div class="booking-item"><div class="title">Ustyurt Boutique Hotel · 阿克套</div><div class="detail">10月2日–10月5日 · 3晚 · 含早 · 担保订单现场支付</div><div class="detail">10月2日前可免费取消</div><a class="loc-link" href="https://www.google.com/maps/search/?api=1&query=Ustyurt+Boutique+Hotel+Aktau">📍 查看地图</a><a class="loc-link" href="ustyurt-aktau.pdf" target="_blank">📄 查看预订确认单</a></div>
+      <div class="booking-item"><div class="title">Renaissance by Sula Hotels · 阿克套</div><div class="detail">10月6日 · 1晚 · 含早</div><a class="loc-link" href="https://www.google.com/maps/search/?api=1&query=Renaissance+by+Sula+Hotels+Aktau">📍 查看地图</a><a class="loc-link" href="renaissance-aktau.pdf" target="_blank">📄 查看预订确认单</a></div>
+      <div class="booking-item"><div class="title">Airbnb · 阿拉木图</div><div class="detail">10月7日–10月11日 · 4晚</div><a class="loc-link" href="airbnb-ala.pdf" target="_blank">📄 查看预订确认单</a></div>
     </div>
     <div class="booking-group">
       <h3>🚗 包车 / 游览</h3>
@@ -231,6 +235,7 @@ footer { text-align: center; padding: 20px 16px 40px; font-size: 11px; color: va
 <script>
 const KZ_TZ = 'Asia/Almaty';
 const events = [
+  { ts: '2026-10-01T12:19:00+08:00', label: '上海虹桥出发 → 杭州东 G1383', tz: 'Asia/Shanghai' },
   { ts: '2026-10-01T18:20:00+08:00', label: '杭州出发 → 阿拉木图', tz: 'Asia/Shanghai' },
   { ts: '2026-10-01T21:45:00+05:00', label: '抵达阿拉木图', tz: KZ_TZ },
   { ts: '2026-10-02T15:55:00+05:00', label: '阿拉木图 → 阿克套 DV731', tz: KZ_TZ },
@@ -258,7 +263,7 @@ setInterval(updateCountdown, 1000); updateCountdown();
 function updateTheme() { const hour = new Date().getHours(); const isNight = hour < 6 || hour >= 18; document.body.setAttribute('data-theme', isNight ? 'night' : 'day'); document.getElementById('themeIcon').textContent = isNight ? '🌙' : '☀️'; }
 updateTheme(); setInterval(updateTheme, 60000);
 const itinerary = [
-  { day: 1, date: '10月1日', dow: '周四', city: '阿拉木图', hotel: 'Renion City', items: [{ time: '18:20', desc: '杭州萧山机场出发', sub: 'GJ8217 经济舱 · HGH T4', loc: 'Hangzhou Xiaoshan International Airport', lat: 30.239, lng: 120.434 }, { time: '21:45', desc: '抵达阿拉木图机场 T2', sub: '入境、取行李、换坚戈', loc: 'Almaty International Airport', lat: 43.352, lng: 77.040 }, { time: '22:30', desc: '入住 Renion City 酒店', sub: '休息', loc: 'Renion City Hotel Almaty', lat: 43.239, lng: 76.890 }] },
+  { day: 1, date: '10月1日', dow: '周四', city: '阿拉木图', hotel: 'Renion City', items: [{ time: '12:19', desc: '上海虹桥出发 → 杭州东', sub: 'G1383 二等座 · 3人同行 · 检票口19A/19B', loc: 'Shanghai Hongqiao Railway Station', lat: 31.190, lng: 121.319 }, { time: '13:21', desc: '抵达杭州东站', sub: '历时1h2m · 02车 08A/08B/08C', loc: 'Hangzhou East Railway Station', lat: 30.291, lng: 120.213 }, { time: '13:35', desc: '第4人抵达杭州东', sub: '小伙伴单独到达，汇合' }, { time: '18:20', desc: '杭州萧山机场出发', sub: 'GJ8217 经济舱 · HGH T4 · 4人', loc: 'Hangzhou Xiaoshan International Airport', lat: 30.239, lng: 120.434 }, { time: '21:45', desc: '抵达阿拉木图机场 T2', sub: '入境、取行李、换坚戈', loc: 'Almaty International Airport', lat: 43.352, lng: 77.040 }, { time: '22:30', desc: '入住 Renion City 酒店', sub: '休息', loc: 'Renion City Hotel Almaty', lat: 43.239, lng: 76.890 }] },
   { day: 2, date: '10月2日', dow: '周五', city: '阿拉木图→阿克套', hotel: 'Ustyurt Boutique Hotel', items: [{ time: '09:00', desc: '酒店退房，阿拉木图市区自由活动', sub: '绿色巴扎 / Panfilov公园', suggested: true, loc: 'Green Bazaar Almaty', lat: 43.257, lng: 76.937 }, { time: '13:30', desc: '前往阿拉木图机场 T1', sub: '国内航班需提前2h到', loc: 'Almaty International Airport T1', lat: 43.352, lng: 77.040 }, { time: '15:55', desc: '阿拉木图 → 阿克套', sub: 'DV731 经济舱 · ALA T1 → SCO', loc: 'Aktau Airport', lat: 43.858, lng: 51.098 }, { time: '19:10', desc: '抵达阿克套机场', sub: '取行李', loc: 'Aktau Airport', lat: 43.858, lng: 51.098 }, { time: '20:00', desc: '入住 Ustyurt Boutique Hotel', sub: '含早 · 担保订单现场支付', loc: 'Ustyurt Boutique Hotel Aktau', lat: 43.658, lng: 51.159 }] },
   { day: 3, date: '10月3日', dow: '周六', city: '阿克套/Mangystau', hotel: 'Ustyurt Boutique Hotel', items: [{ time: '08:00', desc: '酒店早餐', sub: '' }, { time: '09:00', desc: 'Mangystau 一日游', sub: '包车游览（公司待确认）· 具体路线由包车公司安排', needBook: true, loc: 'Mangystau Kazakhstan', lat: 44.0, lng: 52.0 }, { time: '18:00', desc: '返回阿克套', sub: '' }, { time: '19:00', desc: '晚餐', sub: '当地餐厅', suggested: true }] },
   { day: 4, date: '10月4日', dow: '周日', city: '阿克套/Mangystau', hotel: 'Ustyurt Boutique Hotel', items: [{ time: '08:00', desc: '酒店早餐', sub: '' }, { time: '09:00', desc: 'Mangystau 一日游', sub: '包车游览（公司待确认）· 具体路线由包车公司安排', needBook: true, loc: 'Mangystau Kazakhstan', lat: 44.0, lng: 52.0 }, { time: '18:00', desc: '返回阿克套', sub: '' }, { time: '19:00', desc: '晚餐', sub: '当地餐厅', suggested: true }] },
